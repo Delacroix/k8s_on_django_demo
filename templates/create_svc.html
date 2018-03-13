@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create K8S SVC</title>
+</head>
+<body>
+{% for i in service_list.items %}
+{{ i.metadata.name }}
+{% endfor %}
+</body>
+</html>
