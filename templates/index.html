@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index-k8s_pod_list</title>
+</head>
+<body>
+<a href="{% url 'myblogs:create_svc' %}">Create SVC</a>
+<table border="1">
+    {% for i in pod_list.items %}
+<tr>
+<td>{{ i.status.pod_ip }}</td>
+<td>{{ i.metadata.namespace }}</td>
+<td>{{ i.metadata.name }}</td>
+    {% endfor %}
+</tr>
+</table>
+</body>
+</html>
