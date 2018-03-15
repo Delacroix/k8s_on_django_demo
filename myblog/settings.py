@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myblogs',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'myblog.urls'
+BOOTSTRAP3 = {
+    'include_jquery': True
+}
 
 TEMPLATES = [
     {

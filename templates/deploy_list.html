@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index-k8s_pod_list</title>
+</head>
+<body>
+
+    <table border="1">
+    {% for i in deploy_list.items %}
+<tr>
+        <td>{{ i }}</td>
+{#<td>{{ i.spec.containers.image }}</td>#}
+{#<td>{{ i.spec.containers.ports.container_port }}</td>#}
+{#<td>{{ i.metadata.name }}</td>#}
+    {% endfor %}
+</tr>
+</table>
+
+
+</body>
+</html>
+{% endblock content %}

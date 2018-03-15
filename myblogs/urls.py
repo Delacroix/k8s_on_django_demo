@@ -19,6 +19,8 @@ from . import views
 app_name = 'myblogs'
 
 urlpatterns = [
-    re_path(r'^index/$', views.index),
+    re_path(r'^index/$', views.index, name="pod_list"),
     re_path(r'^service_list/$', views.service_list, name="service_list"),
+    re_path(r'^deploy_list/$', views.deploy_list, name="deploy_list"),
+    re_path(r'^new_service/$', views.new_service, name="new_service"),
 ]

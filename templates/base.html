@@ -1,0 +1,17 @@
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Django K8S DEMO</title>
+
+</head>
+
+<p>
+    <a href="{% url 'myblogs:service_list' %}">K8S service list</a><br/>
+    <a href="{% url 'myblogs:deploy_list' %}">K8S deploy list</a><br/>
+    <a href="{% url 'myblogs:pod_list' %}">K8S pod list</a><br/>
+</p>
+
+{% block content %}{% endblock content %}
