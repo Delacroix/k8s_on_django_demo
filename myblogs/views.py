@@ -26,15 +26,14 @@ def deploy_list(request):
 def new_service(request):
     config.load_kube_config()
     api_instance = client.CoreV1Api()
-    service_conf = models.NewService.svc_conf
     service = client.V1Service()
     service.api_version = "v1"
     service.kind = "Service"
-    service.metadata = client.V1ObjectMeta(name=service_conf[0])
+    service.metadata = client.V1ObjectMeta(name='my-service')
     spec = client.V1ServiceSpec()
-    spec.selector = {"app": service_conf[1]}
-    spec.ports = [client.V1ServicePort(protocol=service_conf[2],
-                                       port=service_conf[3],
-                                       target_port=service_conf[4])]
+    spec.selector = {"app": 'MyApps'}
+    spec.ports = [client.V1ServicePort(protocol='TCP',
+                                       port='80',
+                                       target_port='8080')]
     service.spec = spec
     api_instance.create_namespaced_service(namespace="default", body=service)
