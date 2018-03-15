@@ -1,4 +1,5 @@
 from django.db import models
+
 from kubernetes import client, config
 # Create your models here.
 
@@ -21,26 +22,19 @@ class ListService(models.Model):
         return self.service_info
 
 
-class ServiceConfig(models.Model):
+class NewService(models.Model):
     config.load_kube_config()
     v1 = client.CoreV1Api()
-
-    # def __init__(self, svc_name, svc_protocol, svc_spec_selector, svc_port, svc_target_port):
-    #     self.svc_name = svc_name
-    #     self.svc_protocol = svc_protocol
-    #     self.svc_spec_selector = svc_spec_selector
-    #     self.svc_port = svc_port
-    #     self.svc_target_port = svc_target_port
-    #
-    # def svc_config(self):
     svc_name = models.CharField(max_length=32, default='my-service')
     svc_protocol = models.CharField(max_length=32, default='TCP')
     svc_spec_selector = models.CharField(max_length=32, default='MyApps')
     svc_port = models.CharField(max_length=32, default='80')
     svc_target_port = models.CharField(max_length=32, default='8080')
+    svc_conf = [svc_name, svc_protocol, svc_spec_selector,
+                svc_port, svc_target_port]
 
     def __str__(self):
-        return self.svc_name
+        return self.svc_conf
 
 
 class CreateDeploy(models.Model):
@@ -70,7 +64,8 @@ class CreateDeploy(models.Model):
 
     deploy_list = extension.list_deployment_for_all_namespaces(watch=False)
 
-
     def __str__(self):
         return self.deploy_list
+
+
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ServiceConfig
+from .models import NewService
 
 # Register your models here.
-admin.site.register(ServiceConfig)
+admin.site.register(NewService)

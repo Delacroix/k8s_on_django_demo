@@ -4,7 +4,7 @@ from kubernetes import client, config
 
 # Create your views here.
 from . import models
-from .forms import ServiceConfigForm
+
 
 
 def index(request):
@@ -24,9 +24,17 @@ def deploy_list(request):
 
 
 def new_service(request):
-    if request.method != 'POST':
-        form = ServiceConfigForm()
-    else:
-        form = ServiceConfigForm(request.POST)
-        if form.is_valid():
-            form.save()
+    config.load_kube_config()
+    api_instance = client.CoreV1Api()
+    service_conf = models.NewService.svc_conf
+    service = client.V1Service()
+    service.api_version = "v1"
+    service.kind = "Service"
+    service.metadata = client.V1ObjectMeta(name=service_conf[0])
+    spec = client.V1ServiceSpec()
+    spec.selector = {"app": service_conf[1]}
+    spec.ports = [client.V1ServicePort(protocol=service_conf[2],
+                                       port=service_conf[3],
+                                       target_port=service_conf[4])]
+    service.spec = spec
+    api_instance.create_namespaced_service(namespace="default", body=service)
