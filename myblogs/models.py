@@ -1,6 +1,7 @@
 from django.db import models
 
 from kubernetes import client, config
+from kubernetes.client.rest import ApiException
 # Create your models here.
 
 

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from kubernetes import client, config
+from kubernetes.client.rest import ApiException
 
 
 # Create your views here.
@@ -37,6 +38,7 @@ def new_service(request):
                                        target_port=8080)]
     service.spec = spec
     api_instance.create_namespaced_service(namespace="default", body=service)
+    service_list = models.ListService.service_info
     return render(request, 'service_list.html', {'service_list': service_list})
 
 
@@ -64,8 +66,5 @@ def new_deploy(request):
     deployment.spec = spec
 
     extension.create_namespaced_deployment(namespace="default", body=deployment)
+    deploy_list = models.CreateDeploy.deploy_list
     return render(request, 'deploy_list.html', {'deploy_list': deploy_list})
-
-
-def test(request):
-    return render(request, 'test.html', {'test': test})

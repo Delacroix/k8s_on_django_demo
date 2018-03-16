@@ -24,5 +24,4 @@ urlpatterns = [
     re_path(r'^deploy_list/$', views.deploy_list, name="deploy_list"),
     re_path(r'^new_service/$', views.new_service, name="new_service"),
     re_path(r'^new_deploy/$', views.new_deploy, name="new_deploy"),
-    re_path(r'^test/$', views.test, name="test"),
 ]

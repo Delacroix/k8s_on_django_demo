@@ -1,18 +1,32 @@
-{% load bootstrap3 %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <link rel="stylesheet" href="https://libs.baidu.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <meta charset="UTF-8">
-    <title>Django K8S DEMO</title>
-
+   <title>K8S_DEMO</title>
+   <link rel="stylesheet" href="https://libs.baidu.com/bootstrap/3.2.0/css/bootstrap.min.css">
+   <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+   <script src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
+<body>
 
-<p>
-    <a href="{% url 'myblogs:service_list' %}">K8S service list</a><br/>
-    <a href="{% url 'myblogs:deploy_list' %}">K8S deploy list</a><br/>
-    <a href="{% url 'myblogs:pod_list' %}">K8S pod list</a><br/>
-</p>
-
+<nav class="navbar navbar-default" role="navigation">
+   <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse"
+         data-target="#example-navbar-collapse">
+         <span class="sr-only">切换导航</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"&gtK8S_DEMO&lt/a>
+   </div>
+   <div class="collapse navbar-collapse" id="example-navbar-collapse">
+      <ul class="nav navbar-nav">
+          <li><a href="{% url 'myblogs:pod_list' %}">Pod List</a></li>
+          <li><a href="{% url 'myblogs:service_list' %}">Service List</a></li>
+          <li><a href="{% url 'myblogs:deploy_list' %}">Deploy List</a></li>
+      </ul>
+   </div>
+</nav>
 {% block content %}{% endblock content %}
+</body>
+</html>
