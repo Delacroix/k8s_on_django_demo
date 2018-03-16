@@ -1,7 +1,7 @@
 from django.db import models
 
 from kubernetes import client, config
-from kubernetes.client.rest import ApiException
+
 # Create your models here.
 
 
@@ -47,6 +47,7 @@ class CreateDeploy(models.Model):
 
     def __str__(self):
         return self.deploy_list
+
 
 
 
