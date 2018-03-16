@@ -7,17 +7,20 @@
     <title>Index-k8s_pod_list</title>
 </head>
 <body>
-<a href="{% include 'myblogs:new_service'  %}">create new service</a>
-    <table border="1">
+<a href="{% url 'myblogs:new_deploy' %}">create new deploy</a>
+<div class="container">
+<table class="table table-striped">
+<th>NAME</th>
     {% for i in deploy_list.items %}
 <tr>
-        <td>{{ i }}</td>
+        <td>{{ i.metadata.name }}</td>
 {#<td>{{ i.spec.containers.image }}</td>#}
 {#<td>{{ i.spec.containers.ports.container_port }}</td>#}
 {#<td>{{ i.metadata.name }}</td>#}
     {% endfor %}
 </tr>
 </table>
+</div>
 
 
 </body>
