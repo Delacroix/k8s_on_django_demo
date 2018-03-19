@@ -6,6 +6,7 @@ from django.http import HttpResponse
 # Create your views here.
 from . import models
 from .forms import ServiceForm
+from .forms import DeployForm
 
 
 def index(request):
@@ -45,34 +46,36 @@ def new_service(request):
 def new_deploy(request):
     if request.method == 'POST':
 
-        deploy_form = ServiceForm(request.POST)
+        deploy_form = DeployForm(request.POST)
 
         config.load_kube_config()
-        api_instance = client.CoreV1Api()
         extension = client.ExtensionsV1beta1Api()
         deployment = client.ExtensionsV1beta1Deployment()
-        deployment.api_version = "extentions/v1beta1"
-        deployment.kind = "Deployment"
-        deployment.metadata = client.V1ObjectMeta(name="nginx-deployment")
+
+        if deploy_form.is_valid():
+            deployment.api_version = "extentions/v1beta1"
+            deployment.kind = "Deployment"
+            deployment.metadata = client.V1ObjectMeta(name=str(deploy_form.cleaned_data['deploy_name']))
 # TO BE DONE 20180316
-    spec = client.ExtensionsV1beta1DeploymentSpec()
-    spec.replicas = 3
+            spec = client.ExtensionsV1beta1DeploymentSpec()
+            spec.replicas = int(deploy_form.cleaned_data['deploy_replicas'])
 
-    spec.template = client.V1PodTemplateSpec()
-    spec.template.metadata = client.V1ObjectMeta(labels={"app": "nginx"})
-    spec.template.spec = client.V1PodSpec()
+            spec.template = client.V1PodTemplateSpec()
+            spec.template.metadata = client.V1ObjectMeta(labels={"app": str(deploy_form.cleaned_data['deploy_label_app'])})
+            spec.template.spec = client.V1PodSpec()
 
-    container = client.V1Container()
-    container.name = "nginx"
-    container.image = "nginx:1.7.9"
-    container.ports = [client.V1ContainerPort(container_port=80)]
+            container = client.V1Container()
+            container.name = str(deploy_form.cleaned_data['deploy_image_name'])
+            container.image = str(deploy_form.cleaned_data['deploy_image_version'])
+            container.ports = [client.V1ContainerPort(container_port=int(deploy_form.cleaned_data['deploy_container_port']))]
 
-    spec.template.spec.containers = [container]
-    deployment.spec = spec
+            spec.template.spec.containers = [container]
+            deployment.spec = spec
 
-    extension.create_namespaced_deployment(namespace="default", body=deployment)
-    deploy_list = models.CreateDeploy.deploy_list
-    return render(request, 'deploy_list.html', {'deploy_list': deploy_list})
+            extension.create_namespaced_deployment(namespace=str(deploy_form.cleaned_data['deploy_namespace']), body=deployment)
+    else:
+        deploy_form = DeployForm()
+    return render(request, 'new_deploy_form.html', {'deploy_form': deploy_form})
 
 
 def new_svc(request):
