@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index-k8s_pod_list</title>
+</head>
+<body>
+<div class="container">
+<table class="table table-striped">
+<th>NAME</th>
+    {% for i in chart_repo_list.keys %}
+<tr>
+        <td>{{ i }}</td>
+    {% endfor %}
+</table>
+</div>
+
+
+</body>
+</html>
+{% endblock content %}

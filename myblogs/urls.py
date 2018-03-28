@@ -26,4 +26,5 @@ urlpatterns = [
     re_path(r'^new_deploy/$', views.new_deploy, name="new_deploy"),
     re_path(r'^new_svc_form/$', views.new_svc, name="new_svc"),
     re_path(r'^new_deploy_form/$', views.new_deploy, name="new_deploy"),
+    re_path(r'^chart_repo_list/$', views.chart_repo_list, name="chart_repo_list"),
 ]
