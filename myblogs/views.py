@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from kubernetes import client, config
 from django.http import HttpResponse
-import urllib, urllib3, json, demjson
+import urllib3, json, base64
 
 
 # Create your views here.
@@ -109,9 +109,16 @@ def new_svc(request):
 
 def chart_repo_list(request):
     http = urllib3.PoolManager()
-    req = http.request('GET', 'http://172.19.2.50:8080/api/charts')
+    req = http.request('GET', 'http://172.19.2.119:8080/api/charts')
     res = req.data
-    '''格式化json 否则无法渲染'''
-    chart_repo_list = demjson.decode(res)
+    chart_repo_list = json.loads(res)
 
     return render(request, 'chart_repo_list.html', {'chart_repo_list': chart_repo_list})
+
+def svc_list(request):
+    http = urllib3.PoolManager()
+    req = http.request('GET', 'https://172.19.2.172:8443/api/v1/namespaces/default/services')
+    res = req.data
+    svc_list = json.loads(res)
+
+    return render(request, 'svc_list.html', {'svc_list': svc_list})

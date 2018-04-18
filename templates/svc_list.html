@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create K8S SVC</title>
+</head>
+<body>
+<a class="btn btn-default" href="{% url 'myblogs:new_svc' %}" role="button">Create New Service Form</a>
+<div class="container">
+<table class="table table-striped">
+<th>NAMESPACE</th>
+<th>NAME</th>
+<th>TargetPort</th>
+    {% for i in svc_list.items %}
+<tr>
+        <td>{{ i.metadata.namespace }}</td>
+        <td>{{ i.metadata.name }}</td>
+        <td>{{ i.spec.ports.targetPort }}</td>
+    {% endfor %}
+    </tr>
+</table>
+</div>
+</body>
+</html>
+{% endblock content %}
