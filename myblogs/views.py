@@ -112,11 +112,13 @@ def chart_repo_list(request):
     req = http.request('GET', 'http://172.19.2.119:8080/api/charts')
     res = req.data
     chart_repo_list = json.loads(res)
+    for key, value in chart_repo_list.items():
+        for v in value:
+            repo_list = v['urls']
+            return render(request, 'chart_repo_list.html', {'chart_repo_list': repo_list})
 
-    return render(request, 'chart_repo_list.html', {'chart_repo_list': chart_repo_list})
 
 def svc_list(request):
-    # http = urllib3.PoolManager()
     svc_list_url = 'https://172.19.2.172:8443/api/v1/services'
     req = requests.get(svc_list_url, auth=('admin', 'abcd1234'), verify=False)
     res = req.content

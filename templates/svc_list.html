@@ -12,12 +12,19 @@
 <th>NAMESPACE</th>
 <th>NAME</th>
 <th>Ports Information</th>
+<th>Target Port</th>
     {% for svc in svc_list.items %}
 <tr>
         <td>{{ svc.metadata.namespace }}</td>
         <td>{{ svc.metadata.name }}</td>
         <td>{{ svc.spec.ports }}</td>
-    {% endfor %}
+
+
+        {% for port in svc.spec.ports.targetPort %}
+
+        <td>{{ port }}</td>
+            {% endfor %}
+{% endfor %}
     </tr>
 </table>
 </div>
