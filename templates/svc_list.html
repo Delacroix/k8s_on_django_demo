@@ -11,12 +11,12 @@
 <table class="table table-striped">
 <th>NAMESPACE</th>
 <th>NAME</th>
-<th>TargetPort</th>
-    {% for i in svc_list.items %}
+<th>Ports Information</th>
+    {% for svc in svc_list.items %}
 <tr>
-        <td>{{ i.metadata.namespace }}</td>
-        <td>{{ i.metadata.name }}</td>
-        <td>{{ i.spec.ports.targetPort }}</td>
+        <td>{{ svc.metadata.namespace }}</td>
+        <td>{{ svc.metadata.name }}</td>
+        <td>{{ svc.spec.ports }}</td>
     {% endfor %}
     </tr>
 </table>

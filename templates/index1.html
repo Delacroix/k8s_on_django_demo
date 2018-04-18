@@ -2,23 +2,26 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Create K8S SVC</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index-k8s_pod_list</title>
 </head>
 <body>
-<a class="btn btn-default" href="{% url 'myblogs:new_svc' %}" role="button">Create New Service Form</a>
 <div class="container">
 <table class="table table-striped">
+<th>IP</th>
 <th>NAMESPACE</th>
 <th>NAME</th>
-    <th>Ports</th>
-    {% for i in service_list.items %}
+    {% for i in pod_list.items %}
 <tr>
+<td>{{ i.status.pod_ip }}</td>
 <td>{{ i.metadata.namespace }}</td>
 <td>{{ i.metadata.name }}</td>
-<td>{{ i.spec.ports }}</td>
     {% endfor %}
-    </tr>
+</tr>
 </table>
 </div>
 </body>

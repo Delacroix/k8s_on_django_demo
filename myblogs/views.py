@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from kubernetes import client, config
 from django.http import HttpResponse
-import urllib3, json, base64
+import urllib3, json, requests
 
 
 # Create your views here.
@@ -116,9 +116,10 @@ def chart_repo_list(request):
     return render(request, 'chart_repo_list.html', {'chart_repo_list': chart_repo_list})
 
 def svc_list(request):
-    http = urllib3.PoolManager()
-    req = http.request('GET', 'https://172.19.2.172:8443/api/v1/namespaces/default/services')
-    res = req.data
+    # http = urllib3.PoolManager()
+    svc_list_url = 'https://172.19.2.172:8443/api/v1/services'
+    req = requests.get(svc_list_url, auth=('admin', 'abcd1234'), verify=False)
+    res = req.content
     svc_list = json.loads(res)
 
     return render(request, 'svc_list.html', {'svc_list': svc_list})
