@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from kubernetes import client, config
 from django.http import HttpResponse
-import urllib3, json, requests
+import urllib3
+import json
+import requests
 
 
 # Create your views here.
