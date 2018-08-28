@@ -13,17 +13,10 @@
     <h3>Pod List</h3>
 <table class="table table-striped">
 <thead><tr>
-    <th>Edit</th>
 <th>IP</th>
 <th>NAMESPACE</th>
 <th>NAME</th>
 </tr></thead>
-        <tbody><tr ng-repeat="user in users">
-            <td>
-                <button class="btn" ng-click="editUser(user.id)">
-                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
-                </button>
-            </td>
     {% for i in pod_list.items %}
         <tr>
 <td>{{ i.status.pod_ip }}</td>

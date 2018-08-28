@@ -111,7 +111,7 @@ def new_svc(request):
 
 def chart_repo_list(request):
     http = urllib3.PoolManager()
-    req = http.request('GET', 'http://172.19.2.119:8080/api/charts')
+    req = http.request('GET', 'http://local.k8snode1.com:8080/api/charts')
     res = req.data
     chart_repo_list = json.loads(res)
     for key, value in chart_repo_list.items():
@@ -121,7 +121,7 @@ def chart_repo_list(request):
 
 
 def svc_list(request):
-    svc_list_url = 'https://172.19.2.172:8443/api/v1/services'
+    svc_list_url = 'https://local.k8stest.com:8443/api/v1/services'
     req = requests.get(svc_list_url, auth=('admin', 'abcd1234'), verify=False)
     res = req.content
     svc_list = json.loads(res)
